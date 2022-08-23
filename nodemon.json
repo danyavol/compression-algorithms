@@ -1,0 +1,7 @@
+{
+    "verbose": false,
+    "watch": ["src"],
+    "ignore": ["src/output"],
+    "ext": "*",
+    "exec": "cd src && npx ts-node index.ts"
+}

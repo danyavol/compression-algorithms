@@ -1,0 +1,13 @@
+{
+    "scripts": {
+        "start": "nodemon"
+    },
+    "dependencies": {
+        "typescript": "^4.7.4"
+    },
+    "devDependencies": {
+        "@types/node": "^18.7.11",
+        "nodemon": "^2.0.19",
+        "ts-node": "^10.9.1"
+    }
+}

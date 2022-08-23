@@ -1,0 +1,1 @@
+If you want to keep all your package configurations in one place, nodemon supports using package.json for configuration. Specify the config in the same format as you would for a config file but under nodemonConfig in the package.json file, for example, take the following package.json:
