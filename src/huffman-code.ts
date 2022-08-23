@@ -1,6 +1,8 @@
 type Tree = { item: string | [Tree, Tree], value: number };
 
 export function huffmanEncode(text: string): string {
+    if (!text) return '';
+
     /*********** #1 Create stats map ***********/
 
     const statsMap = new Map<string, number>();
@@ -30,30 +32,34 @@ export function huffmanEncode(text: string): string {
 
     const tree: Tree = treeElements[0];
 
-    /*********** #3 Calculate codes map ***********/
+    /*********** #3 Calculate codes dictionary ***********/
 
-    const codesMap = getSymbolCodes(tree, new Map());
+    const codesMap = getSymbolsDictionary(tree, new Map());
 
     /*********** #4 Encode text using codes map ***********/
 
     const bitsString = text.split('').map(symbol => codesMap.get(symbol)).join('');
 
-    return '0'.repeat(bitsString.length % 8) + bitsString;  
+    const zeroPad = bitsString.length % 8 && 8 - bitsString.length % 8;
+
+    // TODO: Add dictionary to the result
+
+    return '0'.repeat(zeroPad) + bitsString;  
 }
 
 export function huffmanDecode(text: string): string {
     // TODO: Implement
-    return "4";
+    return "abc";
 }
 
-function getSymbolCodes(
-    tree: Tree, codesMap: Map<string, string>, currentCode: string = "", 
+function getSymbolsDictionary(
+    tree: Tree, codesMap: Map<string, string>, currentCode: string = "", isFirstCall = true 
 ): Map<string, string> {
     if (typeof tree.item === "string") {
-        codesMap.set(tree.item, currentCode);
+        codesMap.set(tree.item, isFirstCall ? "0" : currentCode);
     } else {
-        getSymbolCodes(tree.item[0], codesMap, currentCode + "0");
-        getSymbolCodes(tree.item[1], codesMap, currentCode + "1");
+        getSymbolsDictionary(tree.item[0], codesMap, currentCode + "0", false);
+        getSymbolsDictionary(tree.item[1], codesMap, currentCode + "1", false);
     }
     return codesMap;
 }
